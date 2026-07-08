@@ -91,7 +91,7 @@ export default function App() {
     setConsoleLogs(["Initializing investment agent core...", `Target entity queued: "${nameToSearch}"`]);
 
     try {
-      const response = await fetch("http://localhost:4000/api/research", {
+      const response = await fetch( `${import.meta.env.VITE_API_URL}/api/research` || "https://investiq-dxh0.onrender.com/api/research", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
