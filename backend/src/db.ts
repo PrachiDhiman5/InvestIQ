@@ -41,11 +41,11 @@ export async function initDb() {
     // Configure Pool
     pgPool = new pg.Pool({
       connectionString: databaseUrl,
-      ssl:
-        process.env.NODE_ENV === "production"
-          ? { rejectUnauthorized: false }
-          : false,
-      connectionTimeoutMillis: 3000, // Timeout fast if DB is not reachable
+      ssl: {
+        rejectUnauthorized: false,
+      },
+      connectionTimeoutMillis: 15000,
+ // Timeout fast if DB is not reachable
     });
 
     // Test query to verify connection
