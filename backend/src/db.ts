@@ -39,6 +39,12 @@ export async function initDb() {
 
   try {
     // Configure Pool
+    console.log("DATABASE_URL exists:", !!databaseUrl);
+
+    const parsed = new URL(databaseUrl);
+    console.log("Connecting to host:", parsed.hostname);
+    console.log("Connecting to database:", parsed.pathname);
+    
     pgPool = new pg.Pool({
       connectionString: databaseUrl,
       ssl: {
@@ -71,7 +77,9 @@ export async function initDb() {
     
     client.release();
   } catch (error: any) {
-    console.error(`[DB] Failed to connect to PostgreSQL: ${error.message || error}`);
+    //console.error(`[DB] Failed to connect to PostgreSQL: ${error.message || error}`);
+    console.error("[DB] Failed to connect to PostgreSQL:");
+    console.error(error);
     console.warn("[DB] Falling back to local file-based database cache.");
     useLocalCache = true;
     pgPool = null;
